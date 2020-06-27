@@ -5,6 +5,14 @@
  */
 package Vista;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author pipex
@@ -55,9 +63,30 @@ public class Login extends javax.swing.JFrame {
         btnEntrar.setBackground(new java.awt.Color(255, 255, 255));
         btnEntrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnEntrar.setText("Entrar");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
+//        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                btnEntrarActionPerformed(evt);
+//            }
+//        });
+        btnEntrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    Connection cxn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","C##ADMIN","portafolio2020");
+                    String sql = "SELECT RUT_USUARIO,PASSWORD FROM DASHBOARD_USUARIO WHERE RUT_USUARIO='"+jFormattedTextField1.getText()+"' and PASSWORD='"+String.valueOf(jPasswordField2.getPassword())+"' and ROL=4 and IS_ACTIVE=1 ";
+                    PreparedStatement ps=cxn.prepareStatement(sql);
+                    ResultSet rs=ps.executeQuery();
+                    if (rs.next()){
+//                        JOptionPane.showMessageDialog( getParent(), "Bienvenido","Acceso Exitoso",JOptionPane.INFORMATION_MESSAGE);
+                        principalPanel home = new principalPanel();
+                        home.setVisible(true);
+                        dispose();
+                    }else {
+                        JOptionPane.showMessageDialog( getParent(), "Error", "Acceso denegado",JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } catch (Exception e){System.out.println(e);}
+
             }
         });
 
@@ -68,7 +97,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-A")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
