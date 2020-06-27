@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,21 +33,12 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
 
         containerPanel = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
-        addGruaPanel = new javax.swing.JPanel();
-        addIndicatorPanel = new javax.swing.JPanel();
-        addGrua = new javax.swing.JLabel();
-        listGruaPanel = new javax.swing.JPanel();
-        listIndicatorPanel = new javax.swing.JPanel();
-        listGrua = new javax.swing.JLabel();
-        editGruaPanel = new javax.swing.JPanel();
-        editIndicatorPanel = new javax.swing.JPanel();
-        editGrua = new javax.swing.JLabel();
-        deleteGruaPanel = new javax.swing.JPanel();
-        deleteIndicatorPanel = new javax.swing.JPanel();
-        deleteGrua = new javax.swing.JLabel();
-        disableGruaPanel = new javax.swing.JPanel();
-        disableIndicatorPanel = new javax.swing.JPanel();
-        disableGrua = new javax.swing.JLabel();
+        btnAddGrua = new javax.swing.JButton();
+        btnListGrua = new javax.swing.JButton();
+        btnEditGrua = new javax.swing.JButton();
+        btnDeleteGrua = new javax.swing.JButton();
+        btnDisableGrua = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         headerPanel = new javax.swing.JPanel();
         userConnect = new javax.swing.JLabel();
         logoNombre = new javax.swing.JLabel();
@@ -86,210 +78,112 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
 
         sidePanel.setBackground(new java.awt.Color(54, 185, 205));
 
-        addGruaPanel.setBackground(new java.awt.Color(54, 185, 205));
-        addGruaPanel.setOpaque(false);
-
-        addIndicatorPanel.setOpaque(false);
-        addIndicatorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        addGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        addGrua.setForeground(new java.awt.Color(255, 255, 255));
-        addGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        addGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_plus_math_32px_1.png"))); // NOI18N
-        addGrua.setText("Agregar Grúas");
-        addGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addGrua.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAddGrua.setBackground(new java.awt.Color(54, 185, 205));
+        btnAddGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAddGrua.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_plus_math_32px_1.png"))); // NOI18N
+        btnAddGrua.setText("Agregar Grúa");
+        btnAddGrua.setBorderPainted(false);
+        btnAddGrua.setContentAreaFilled(false);
+        btnAddGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAddGrua.setOpaque(true);
+        btnAddGrua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                addGruaMousePressed(evt);
+                btnAddGruaMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout addGruaPanelLayout = new javax.swing.GroupLayout(addGruaPanel);
-        addGruaPanel.setLayout(addGruaPanelLayout);
-        addGruaPanelLayout.setHorizontalGroup(
-            addGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addGruaPanelLayout.createSequentialGroup()
-                .addComponent(addIndicatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        addGruaPanelLayout.setVerticalGroup(
-            addGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addIndicatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addGruaPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addGrua)
-                .addContainerGap())
-        );
-
-        listGruaPanel.setBackground(new java.awt.Color(54, 185, 205));
-        listGruaPanel.setOpaque(false);
-
-        listIndicatorPanel.setOpaque(false);
-        listIndicatorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        listGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        listGrua.setForeground(new java.awt.Color(255, 255, 255));
-        listGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        listGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_search_32px.png"))); // NOI18N
-        listGrua.setText("Listar Grúas");
-        listGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listGrua.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnListGrua.setBackground(new java.awt.Color(54, 185, 205));
+        btnListGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnListGrua.setForeground(new java.awt.Color(255, 255, 255));
+        btnListGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_search_32px.png"))); // NOI18N
+        btnListGrua.setText("Listar Grúas");
+        btnListGrua.setBorderPainted(false);
+        btnListGrua.setContentAreaFilled(false);
+        btnListGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnListGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnListGrua.setOpaque(true);
+        btnListGrua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                listGruaMousePressed(evt);
+                btnListGruaMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout listGruaPanelLayout = new javax.swing.GroupLayout(listGruaPanel);
-        listGruaPanel.setLayout(listGruaPanelLayout);
-        listGruaPanelLayout.setHorizontalGroup(
-            listGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listGruaPanelLayout.createSequentialGroup()
-                .addComponent(listIndicatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(listGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        listGruaPanelLayout.setVerticalGroup(
-            listGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(listIndicatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listGruaPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(listGrua)
-                .addContainerGap())
-        );
-
-        editGruaPanel.setBackground(new java.awt.Color(54, 185, 205));
-        editGruaPanel.setOpaque(false);
-
-        editIndicatorPanel.setOpaque(false);
-        editIndicatorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        editGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        editGrua.setForeground(new java.awt.Color(255, 255, 255));
-        editGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        editGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_edit_32px.png"))); // NOI18N
-        editGrua.setText("Modificar Grúas");
-        editGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        editGrua.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEditGrua.setBackground(new java.awt.Color(54, 185, 205));
+        btnEditGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnEditGrua.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_edit_32px.png"))); // NOI18N
+        btnEditGrua.setText("Modificar Grúas");
+        btnEditGrua.setBorderPainted(false);
+        btnEditGrua.setContentAreaFilled(false);
+        btnEditGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditGrua.setOpaque(true);
+        btnEditGrua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                editGruaMousePressed(evt);
+                btnEditGruaMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout editGruaPanelLayout = new javax.swing.GroupLayout(editGruaPanel);
-        editGruaPanel.setLayout(editGruaPanelLayout);
-        editGruaPanelLayout.setHorizontalGroup(
-            editGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editGruaPanelLayout.createSequentialGroup()
-                .addComponent(editIndicatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        editGruaPanelLayout.setVerticalGroup(
-            editGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editIndicatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editGruaPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editGrua)
-                .addContainerGap())
-        );
-
-        deleteGruaPanel.setBackground(new java.awt.Color(54, 185, 205));
-        deleteGruaPanel.setOpaque(false);
-
-        deleteIndicatorPanel.setOpaque(false);
-        deleteIndicatorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        deleteGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        deleteGrua.setForeground(new java.awt.Color(255, 255, 255));
-        deleteGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        deleteGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_waste_32px.png"))); // NOI18N
-        deleteGrua.setText("Eliminar Grúas");
-        deleteGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        deleteGrua.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDeleteGrua.setBackground(new java.awt.Color(54, 185, 205));
+        btnDeleteGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnDeleteGrua.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_waste_32px.png"))); // NOI18N
+        btnDeleteGrua.setText("Eliminar Grúas");
+        btnDeleteGrua.setBorderPainted(false);
+        btnDeleteGrua.setContentAreaFilled(false);
+        btnDeleteGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDeleteGrua.setOpaque(true);
+        btnDeleteGrua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                deleteGruaMousePressed(evt);
+                btnDeleteGruaMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout deleteGruaPanelLayout = new javax.swing.GroupLayout(deleteGruaPanel);
-        deleteGruaPanel.setLayout(deleteGruaPanelLayout);
-        deleteGruaPanelLayout.setHorizontalGroup(
-            deleteGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(deleteGruaPanelLayout.createSequentialGroup()
-                .addComponent(deleteIndicatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        deleteGruaPanelLayout.setVerticalGroup(
-            deleteGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deleteIndicatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(deleteGruaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(deleteGrua)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnDisableGrua.setBackground(new java.awt.Color(54, 185, 205));
+        btnDisableGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnDisableGrua.setForeground(new java.awt.Color(255, 255, 255));
+        btnDisableGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_unavailable_32px.png"))); // NOI18N
+        btnDisableGrua.setText("Grúas Deshabilitadas");
+        btnDisableGrua.setBorderPainted(false);
+        btnDisableGrua.setContentAreaFilled(false);
+        btnDisableGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDisableGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDisableGrua.setOpaque(true);
 
-        disableGruaPanel.setBackground(new java.awt.Color(54, 185, 205));
-        disableGruaPanel.setOpaque(false);
-
-        disableIndicatorPanel.setOpaque(false);
-        disableIndicatorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        disableGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        disableGrua.setForeground(new java.awt.Color(255, 255, 255));
-        disableGrua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        disableGrua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_unavailable_32px.png"))); // NOI18N
-        disableGrua.setText("Grúas Deshabilitadas");
-        disableGrua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout disableGruaPanelLayout = new javax.swing.GroupLayout(disableGruaPanel);
-        disableGruaPanel.setLayout(disableGruaPanelLayout);
-        disableGruaPanelLayout.setHorizontalGroup(
-            disableGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(disableGruaPanelLayout.createSequentialGroup()
-                .addComponent(disableIndicatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(disableGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        disableGruaPanelLayout.setVerticalGroup(
-            disableGruaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(disableIndicatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, disableGruaPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(disableGrua)
-                .addContainerGap())
-        );
+        jLabel9.setText("   ");
+        jLabel9.setToolTipText("SKT1");
 
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addGruaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(deleteGruaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(editGruaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(disableGruaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(listGruaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAddGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnListGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnEditGrua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(sidePanelLayout.createSequentialGroup()
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDisableGrua)
+                    .addComponent(btnDeleteGrua, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addGruaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listGruaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(editGruaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddGrua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteGruaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnListGrua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(disableGruaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 238, Short.MAX_VALUE))
+                .addComponent(btnEditGrua)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDeleteGrua)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDisableGrua)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addComponent(jLabel9))
         );
 
         containerPanel.add(sidePanel, java.awt.BorderLayout.WEST);
@@ -301,19 +195,21 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         userConnect.setForeground(new java.awt.Color(255, 255, 255));
         userConnect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userConnect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_person_32px.png"))); // NOI18N
-        userConnect.setText("User   ");
+        userConnect.setText("User  ");
         headerPanel.add(userConnect, java.awt.BorderLayout.EAST);
 
         logoNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         logoNombre.setForeground(new java.awt.Color(240, 240, 240));
         logoNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/seguro-icon (1).png"))); // NOI18N
         logoNombre.setText("Seguros Virgolini");
+        logoNombre.setToolTipText("Home");
+        logoNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 logoNombreMousePressed(evt);
             }
         });
-        headerPanel.add(logoNombre, java.awt.BorderLayout.CENTER);
+        headerPanel.add(logoNombre, java.awt.BorderLayout.WEST);
 
         containerPanel.add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -512,15 +408,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGruaMousePressed
-        // TODO add your handling code here:
-        addPanel.setVisible(true);
-        homePanel.setVisible(false);
-        listPanel.setVisible(false);
-        editPanel.setVisible(false);
-        deletePanel.setVisible(false);
-    }//GEN-LAST:event_addGruaMousePressed
-
     private void logoNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoNombreMousePressed
         // TODO add your handling code here:
         addPanel.setVisible(false);
@@ -528,34 +415,63 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         listPanel.setVisible(false);
         editPanel.setVisible(false);
         deletePanel.setVisible(false);
+        btnAddGrua.setBackground(new Color(54, 185, 205));
+        btnListGrua.setBackground(new Color(54, 185, 205));
+        btnEditGrua.setBackground(new Color(54, 185, 205));
+        btnDeleteGrua.setBackground(new Color(54, 185, 205));
     }//GEN-LAST:event_logoNombreMousePressed
 
-    private void listGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listGruaMousePressed
+    private void btnAddGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddGruaMousePressed
+        // TODO add your handling code here:
+        addPanel.setVisible(true);
+        homePanel.setVisible(false);
+        listPanel.setVisible(false);
+        editPanel.setVisible(false);
+        deletePanel.setVisible(false);
+        btnAddGrua.setBackground(new Color(18, 118, 129));
+        btnListGrua.setBackground(new Color(54, 185, 205));
+        btnEditGrua.setBackground(new Color(54, 185, 205));
+        btnDeleteGrua.setBackground(new Color(54, 185, 205));
+    }//GEN-LAST:event_btnAddGruaMousePressed
+
+    private void btnListGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListGruaMousePressed
         // TODO add your handling code here:
         addPanel.setVisible(false);
         homePanel.setVisible(false);
         listPanel.setVisible(true);
         editPanel.setVisible(false);
         deletePanel.setVisible(false);
-    }//GEN-LAST:event_listGruaMousePressed
+        btnListGrua.setBackground(new Color(18, 118, 129));
+        btnAddGrua.setBackground(new Color(54, 185, 205));
+        btnEditGrua.setBackground(new Color(54, 185, 205));
+        btnDeleteGrua.setBackground(new Color(54, 185, 205));
+    }//GEN-LAST:event_btnListGruaMousePressed
 
-    private void editGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editGruaMousePressed
+    private void btnEditGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditGruaMousePressed
         // TODO add your handling code here:
         addPanel.setVisible(false);
         homePanel.setVisible(false);
         listPanel.setVisible(false);
         editPanel.setVisible(true);
         deletePanel.setVisible(false);
-    }//GEN-LAST:event_editGruaMousePressed
+        btnEditGrua.setBackground(new Color(18, 118, 129));
+        btnListGrua.setBackground(new Color(54, 185, 205));
+        btnAddGrua.setBackground(new Color(54, 185, 205));
+        btnDeleteGrua.setBackground(new Color(54, 185, 205));
+    }//GEN-LAST:event_btnEditGruaMousePressed
 
-    private void deleteGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteGruaMousePressed
+    private void btnDeleteGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteGruaMousePressed
         // TODO add your handling code here:
         addPanel.setVisible(false);
         homePanel.setVisible(false);
         listPanel.setVisible(false);
         editPanel.setVisible(false);
         deletePanel.setVisible(true);
-    }//GEN-LAST:event_deleteGruaMousePressed
+        btnDeleteGrua.setBackground(new Color(18, 118, 129));
+        btnListGrua.setBackground(new Color(54, 185, 205));
+        btnEditGrua.setBackground(new Color(54, 185, 205));
+        btnAddGrua.setBackground(new Color(54, 185, 205));
+    }//GEN-LAST:event_btnDeleteGruaMousePressed
 
     /**
      * @param args the command line arguments
@@ -589,22 +505,15 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addGrua;
-    private javax.swing.JPanel addGruaPanel;
-    private javax.swing.JPanel addIndicatorPanel;
     private javax.swing.JPanel addPanel;
     private javax.swing.JPanel bodyPanel;
+    private javax.swing.JButton btnAddGrua;
+    private javax.swing.JButton btnDeleteGrua;
+    private javax.swing.JButton btnDisableGrua;
+    private javax.swing.JButton btnEditGrua;
+    private javax.swing.JButton btnListGrua;
     private javax.swing.JPanel containerPanel;
-    private javax.swing.JLabel deleteGrua;
-    private javax.swing.JPanel deleteGruaPanel;
-    private javax.swing.JPanel deleteIndicatorPanel;
     private javax.swing.JPanel deletePanel;
-    private javax.swing.JLabel disableGrua;
-    private javax.swing.JPanel disableGruaPanel;
-    private javax.swing.JPanel disableIndicatorPanel;
-    private javax.swing.JLabel editGrua;
-    private javax.swing.JPanel editGruaPanel;
-    private javax.swing.JPanel editIndicatorPanel;
     private javax.swing.JPanel editPanel;
     private javax.swing.JPanel formAddPanel;
     private javax.swing.JPanel headerPanel;
@@ -623,6 +532,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -630,9 +540,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JLabel listGrua;
-    private javax.swing.JPanel listGruaPanel;
-    private javax.swing.JPanel listIndicatorPanel;
     private javax.swing.JPanel listPanel;
     private javax.swing.JLabel logoNombre;
     private javax.swing.JPanel sidePanel;
