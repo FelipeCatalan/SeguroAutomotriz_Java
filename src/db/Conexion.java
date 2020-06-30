@@ -21,16 +21,16 @@ public class Conexion {
         return cxn;
     }
     
-    public static void main(String[] args) {
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection  conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","C##ADMIN","portafolio2020");
-            System.out.println("Conexión exitosa");
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("Error en la conexión de la base de datos");
-        }
-        
-         
-    }
+//    public static void main(String[] args) {
+//        try {
+//            Class.forName("oracle.jdbc.driver.OracleDriver");
+//            Connection  conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","C##ADMIN","portafolio2020");
+//            System.out.println("Conexión exitosa");
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            System.out.println("Error en la conexión de la base de datos");
+//        }
+//
+//
+//    }
     
 }
