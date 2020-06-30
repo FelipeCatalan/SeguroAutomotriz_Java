@@ -5,9 +5,15 @@
  */
 package Vista;
 
+import Controlador.Registro;
+import Modelo.Grua;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -285,7 +291,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "PATENTE", "MARCA", "MODELO ", "TIPO","AÑO","ESTADO"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -445,6 +451,32 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         btnAddGrua.setBackground(new Color(54, 185, 205));
         btnEditGrua.setBackground(new Color(54, 185, 205));
         btnDeleteGrua.setBackground(new Color(54, 185, 205));
+
+        String PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,estadoFinal;
+        int SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO;
+        boolean ESTADO ;
+        boolean ESTADO_DELETE;
+
+        Registro rg = new Registro();
+        DefaultTableModel tabla = (DefaultTableModel) jTable2.getModel();
+        tabla.setRowCount(0);
+        ArrayList<Grua> lista = rg.listarTodasGruas();
+        for (Grua tmp:lista){
+            PATENTE_GRUA=tmp.getPATENTE_GRUA();
+            MARCA=tmp.getMARCA();
+            MODELO=tmp.getMODELO();
+            TIPO=tmp.getTIPO();
+            ANIO= tmp.getANIO();
+            ESTADO= tmp.getESTADO();
+            if (ESTADO==true){
+                estadoFinal = "DISPONIBLE";
+            }else {
+                estadoFinal= "NO DISPONIBLE";
+            }
+
+            tabla.addRow(new Object[]{PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,estadoFinal});
+
+        }
     }//GEN-LAST:event_btnListGruaMousePressed
 
     private void btnEditGruaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditGruaMousePressed
