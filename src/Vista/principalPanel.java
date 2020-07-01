@@ -8,30 +8,35 @@ package Vista;
 import Controlador.Registro;
 import Modelo.Grua;
 import Modelo.Usuario;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import db.Conexion;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author danie
  */
 public class principalPanel extends javax.swing.JFrame implements ActionListener {
-
+    
     public principalPanel() {
         initComponents();
         setSize(1200, 720);
         setLocationRelativeTo(null);
         setTitle("Dashboard Grúas");
+        jTable2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        jTable2.getTableHeader().setOpaque(false);
+        jTable2.getTableHeader().setBackground(new Color(18, 118, 129));
+        jTable2.getTableHeader().setForeground(new Color(255, 255, 255));
+        jTable2.setRowHeight(25);
     }
 
     /**
@@ -62,36 +67,40 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel1 = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
         btnAgregarGrua = new javax.swing.JButton();
-        btnClearGrua = new javax.swing.JButton();
+        btnLimiparAdd = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        cboMarca = new javax.swing.JComboBox<>();
+        cbxMarca = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        cboTipo = new javax.swing.JComboBox<>();
+        cbxTipo = new javax.swing.JComboBox<>();
         txtAnio = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        btnConsultar = new javax.swing.JButton();
         checkEstado = new javax.swing.JCheckBox();
         checkEstadoDelete = new javax.swing.JCheckBox();
-        txtServicioGrua = new javax.swing.JTextField();
-        txtRutUsuario = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        btnConsultar = new javax.swing.JButton();
         txtRutConsulta = new javax.swing.JFormattedTextField();
+        txtServicioGrua = new javax.swing.JTextField();
+        txtRutUsuario = new javax.swing.JTextField();
         listPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        txtBuscarPatente = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         editPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_limpiar_modificar = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -103,9 +112,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         deletePanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
+        input_eliminar = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,7 +226,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 .addComponent(btnDeleteGrua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDisableGrua)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(jLabel9))
         );
 
@@ -277,14 +285,19 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
             }
         });
 
-        btnClearGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnClearGrua.setText("Limpiar");
+        btnLimiparAdd.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnLimiparAdd.setText("Limpiar");
+        btnLimiparAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimiparAddActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Marca");
 
-        cboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona marca", "NISSAN", "CHEVROLET", "MERCEDEZ-BENZ", "VOLKSWAGEN", "TOYOTA", "MITSUBISHI", "VOLVO" }));
+        cbxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona marca", "NISSAN", "CHEVROLET", "MERCEDEZ-BENZ", "VOLKSWAGEN", "TOYOTA", "MITSUBISHI", "VOLVO" }));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -294,29 +307,11 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Tipo");
 
-        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "CAMILLA", "GANCHO", "ARRASTRE" }));
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "CAMILLA", "GANCHO", "ARRASTRE" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Año");
-
-        checkEstado.setSelected(true);
-//        checkEstado.setText("Disponible");
-        checkEstado.setEnabled(false);
-        checkEstado.setToolTipText("");
-
-        checkEstadoDelete.setSelected(true);
-//        checkEstadoDelete.setText("Habilitada");
-        checkEstadoDelete.setEnabled(false);
-        checkEstadoDelete.setToolTipText("");
-
-        txtServicioGrua.setEnabled(false);
-
-        txtRutUsuario.setEnabled(false);
-
-        jLabel18.setText("Llenar datos");
-
-        jLabel19.setText("Rut:");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -325,11 +320,30 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
             }
         });
 
+        checkEstado.setSelected(true);
+        checkEstado.setText("Disponible");
+        checkEstado.setEnabled(false);
+
+        checkEstadoDelete.setSelected(true);
+        checkEstadoDelete.setText("Habilitada");
+        checkEstadoDelete.setEnabled(false);
+
+        jLabel18.setText("Cargar datos");
+
+        jLabel19.setText("Rut: ");
+
         try {
             txtRutConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-A")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+
+
+        txtServicioGrua.setEnabled(false);
+
+
+        txtRutUsuario.setEnabled(false);
 
         javax.swing.GroupLayout formAddPanelLayout = new javax.swing.GroupLayout(formAddPanel);
         formAddPanel.setLayout(formAddPanelLayout);
@@ -338,52 +352,52 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
             .addGroup(formAddPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formAddPanelLayout.createSequentialGroup()
+                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(formAddPanelLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel10)
-                                    .addComponent(cboMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbxMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel12)
-                                    .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(46, Short.MAX_VALUE))
+                                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formAddPanelLayout.createSequentialGroup()
+                                .addComponent(btnAgregarGrua)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                                .addComponent(btnLimiparAdd)))
+                        .addGap(18, 18, 18))
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
                             .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(checkEstado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkEstadoDelete)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addComponent(btnAgregarGrua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClearGrua)
-                        .addGap(18, 18, 18))))
-            .addGroup(formAddPanelLayout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jLabel18)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(formAddPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel19)
-                .addGap(20, 20, 20)
-                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addComponent(txtRutConsulta)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConsultar)))
-                .addGap(46, 46, 46))
+                                .addComponent(checkEstadoDelete))
+                            .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRutConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
+                                        .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnConsultar)
+                                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         formAddPanelLayout.setVerticalGroup(
             formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +407,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -407,7 +421,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -415,21 +429,21 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                     .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkEstado)
                     .addComponent(checkEstadoDelete))
-                .addGap(29, 29, 29)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
                     .addComponent(btnConsultar)
+                    .addComponent(jLabel19)
                     .addComponent(txtRutConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(32, 32, 32)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                    .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarGrua)
-                    .addComponent(btnClearGrua))
+                    .addComponent(btnLimiparAdd))
                 .addContainerGap())
         );
 
@@ -440,17 +454,25 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         listPanel.setBackground(new java.awt.Color(248, 249, 253));
         listPanel.setLayout(new java.awt.BorderLayout());
 
+        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Patente", "Marca", "Modelo", "Tipo", "Año", "Estado"
             }
         ));
+        jTable2.setFocusable(false);
+        jTable2.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        jTable2.setRowHeight(25);
+        jTable2.setSelectionBackground(new java.awt.Color(54, 185, 205));
+        jTable2.setShowVerticalLines(false);
+        jTable2.setSurrendersFocusOnKeystroke(true);
+        jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
 
         listPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -458,14 +480,50 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel5.setText(" ");
         listPanel.add(jLabel5, java.awt.BorderLayout.PAGE_END);
 
-        jLabel6.setText(" ");
-        listPanel.add(jLabel6, java.awt.BorderLayout.PAGE_START);
-
         jLabel7.setText("               ");
         listPanel.add(jLabel7, java.awt.BorderLayout.LINE_END);
 
         jLabel8.setText("               ");
         listPanel.add(jLabel8, java.awt.BorderLayout.LINE_START);
+
+        jPanel3.setOpaque(false);
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jPanel4.setOpaque(false);
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButton3.setText("Buscar");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel6.setText("Buscar por patente");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(500, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBuscarPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addGap(45, 45, 45))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscarPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel6))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_END);
+
+        listPanel.add(jPanel3, java.awt.BorderLayout.NORTH);
 
         bodyPanel.add(listPanel, "card3");
 
@@ -476,16 +534,16 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Ingrese patente de grúa que desea modificar");
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton3.setText("Modificar");
-//        jButton3.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                jButton3ActionPerformed(evt);
-//            }
-//        });
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton4.setText("Limpiar");
+        btn_limpiar_modificar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_limpiar_modificar.setText("Limpiar");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona marca", "NISSAN", "CHEVROLET", "MERCEDEZ-BENZ", "VOLKSWAGEN", "TOYOTA", "MITSUBISHI", "VOLVO" }));
 
@@ -511,36 +569,31 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addComponent(btn_modificar)
+                        .addGap(137, 137, 137)
+                        .addComponent(btn_limpiar_modificar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel14)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
-                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(63, 63, 63))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(48, 48, 48))))
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -549,7 +602,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel15)
@@ -569,28 +622,14 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addGap(24, 24, 24))
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_limpiar_modificar))
+                .addGap(35, 35, 35))
         );
 
-        javax.swing.GroupLayout editPanelLayout = new javax.swing.GroupLayout(editPanel);
-        editPanel.setLayout(editPanelLayout);
-        editPanelLayout.setHorizontalGroup(
-            editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editPanelLayout.createSequentialGroup()
-                .addGap(288, 288, 288)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        editPanelLayout.setVerticalGroup(
-            editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
+        editPanel.add(jPanel1);
 
         bodyPanel.add(editPanel, "card5");
 
@@ -601,40 +640,43 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Ingrese patente de grúa que desea eliminar");
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton5.setText("Eliminar");
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton6.setText("Limpiar");
+        try {
+            input_eliminar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("??-AA-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jButton6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(input_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_eliminar))
+                .addGap(155, 155, 155))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton5)))
+                    .addComponent(input_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(130, 130, 130)
+                .addComponent(btn_eliminar)
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         deletePanel.add(jPanel2);
@@ -685,31 +727,30 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         btnAddGrua.setBackground(new Color(54, 185, 205));
         btnEditGrua.setBackground(new Color(54, 185, 205));
         btnDeleteGrua.setBackground(new Color(54, 185, 205));
-
-        String PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,estadoFinal;
-        int SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO;
-        boolean ESTADO ;
-        boolean ESTADO_DELETE;
-
+        
+        String PATENTE_GRUA, MARCA, MODELO, TIPO, ANIO, estadoFinal;
+        int SERVICIO_GRUA_ID_SERVICIO, USUARIO_RUT_USUARIO;
+        boolean ESTADO, ESTADO_DELETE;
+        
         Registro rg = new Registro();
         DefaultTableModel tabla = (DefaultTableModel) jTable2.getModel();
         tabla.setRowCount(0);
         ArrayList<Grua> lista = rg.listarTodasGruas();
-        for (Grua tmp:lista){
-            PATENTE_GRUA=tmp.getPATENTE_GRUA();
-            MARCA=tmp.getMARCA();
-            MODELO=tmp.getMODELO();
-            TIPO=tmp.getTIPO();
-            ANIO= tmp.getANIO();
-            ESTADO= tmp.getESTADO();
-            if (ESTADO==true){
+        for (Grua tmp : lista) {
+            PATENTE_GRUA = tmp.getPATENTE_GRUA();
+            MARCA = tmp.getMARCA();
+            MODELO = tmp.getMODELO();
+            TIPO = tmp.getTIPO();
+            ANIO = tmp.getANIO();
+            ESTADO = tmp.getESTADO();
+            if (ESTADO == true) {
                 estadoFinal = "DISPONIBLE";
-            }else {
-                estadoFinal= "NO DISPONIBLE";
+            } else {
+                estadoFinal = "NO DISPONIBLE";
             }
-
-            tabla.addRow(new Object[]{PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,estadoFinal});
-
+            
+            tabla.addRow(new Object[]{PATENTE_GRUA, MARCA, MODELO, TIPO, ANIO, estadoFinal});
+            
         }
     }//GEN-LAST:event_btnListGruaMousePressed
 
@@ -739,6 +780,73 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         btnAddGrua.setBackground(new Color(54, 185, 205));
     }//GEN-LAST:event_btnDeleteGruaMousePressed
 
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        String PATENTE_GRUA, MARCA = null, MODELO = null, TIPO = null, ANIO = null;
+        int SERVICIO_GRUA_ID_SERVICIO = 0, USUARIO_RUT_USUARIO = 0;
+        boolean ESTADO = false, ESTADO_DELETE;
+        
+        ESTADO_DELETE = false;
+        PATENTE_GRUA = input_eliminar.getText();
+        if (PATENTE_GRUA.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar una patente válida", "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            input_eliminar.requestFocus();
+            return;
+        }
+        
+        Grua grua = new Grua(PATENTE_GRUA, MARCA, MODELO, TIPO, ANIO, SERVICIO_GRUA_ID_SERVICIO, USUARIO_RUT_USUARIO, ESTADO, ESTADO_DELETE);
+        Registro reg = new Registro();
+        if (reg.eliminarGrua(grua)) {
+            input_eliminar.setText(null);
+            JOptionPane.showMessageDialog(this, "Se eliminó correctamente la grúa " + grua.getPATENTE_GRUA(),
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar la grúa " + grua.getPATENTE_GRUA(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btnLimiparAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimiparAddActionPerformed
+        txtPatente.setText(null);
+        txtModelo.setText(null);
+        txtAnio.setText(null);
+        cbxMarca.setSelectedIndex(0);
+        cbxTipo.setSelectedIndex(0);
+        txtRutConsulta.setText(null);
+        txtRutUsuario.setText(null);
+        txtServicioGrua.setText(null);
+    }//GEN-LAST:event_btnLimiparAddActionPerformed
+
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+            Conexion bd = new Conexion();
+            Connection cxn = bd.obtenerConexion();
+
+            String sql = "SELECT ID,SERVICIO_GRUA_ID_SERVICIO_GRUA FROM DASHBOARD_USUARIO WHERE RUT_USUARIO='"+txtRutConsulta.getText()+"'";
+
+            PreparedStatement stmt = cxn.prepareStatement(sql);
+
+            ResultSet rs= stmt.executeQuery();
+            if (rs.next()){
+                this.txtRutUsuario.setText(rs.getString("ID"));
+                this.txtServicioGrua.setText(rs.getString("SERVICIO_GRUA_ID_SERVICIO_GRUA"));
+
+
+
+
+                stmt.close();
+                cxn.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al agregar grua " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAgregarGruaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarGruaActionPerformed
         String PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO;
@@ -754,10 +862,10 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         }
         ESTADO = checkEstado.isSelected();
         ESTADO_DELETE = checkEstadoDelete.isSelected();
-        MARCA = cboMarca.getSelectedItem().toString();
+        MARCA = cbxMarca.getSelectedItem().toString();
         if (MARCA.equals("Selecciona marca")){
             JOptionPane.showMessageDialog(this, "Selecciona marca ", "Validación", JOptionPane.WARNING_MESSAGE);
-            cboMarca.requestFocus();
+            cbxMarca.requestFocus();
             return;
         }
         MODELO = txtModelo.getText();
@@ -766,10 +874,10 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
             txtModelo.requestFocus();
             return;
         }
-        TIPO = cboTipo.getSelectedItem().toString();
+        TIPO = cbxTipo.getSelectedItem().toString();
         if (MARCA.equals("Selecciona tipo")){
             JOptionPane.showMessageDialog(this, "Selecciona tipo ", "Validación", JOptionPane.WARNING_MESSAGE);
-            cboTipo.requestFocus();
+            cbxTipo.requestFocus();
             return;
         }
         try {
@@ -807,10 +915,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 JOptionPane.showMessageDialog(this, "Vehículo NO se agregó", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-
-
-
     }//GEN-LAST:event_btnAgregarGruaActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -843,6 +947,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
 
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+
+
     /**
      * @param args the command line arguments
      */
@@ -854,7 +960,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -879,14 +985,17 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JButton btnAddGrua;
     private javax.swing.JButton btnAgregarGrua;
-    private javax.swing.JButton btnClearGrua;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnDeleteGrua;
     private javax.swing.JButton btnDisableGrua;
     private javax.swing.JButton btnEditGrua;
+    private javax.swing.JButton btnLimiparAdd;
     private javax.swing.JButton btnListGrua;
-    private javax.swing.JComboBox<String> cboMarca;
-    private javax.swing.JComboBox<String> cboTipo;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_limpiar_modificar;
+    private javax.swing.JButton btn_modificar;
+    private javax.swing.JComboBox<String> cbxMarca;
+    private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JCheckBox checkEstado;
     private javax.swing.JCheckBox checkEstadoDelete;
     private javax.swing.JPanel containerPanel;
@@ -895,10 +1004,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JPanel formAddPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JFormattedTextField input_eliminar;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
@@ -922,9 +1029,10 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -932,6 +1040,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel logoNombre;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtBuscarPatente;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPatente;
     private javax.swing.JFormattedTextField txtRutConsulta;
@@ -944,5 +1053,5 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

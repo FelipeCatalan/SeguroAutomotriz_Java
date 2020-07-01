@@ -1,9 +1,7 @@
 package Controlador;
 
 import Modelo.Grua;
-import Vista.Login;
 import db.Conexion;
-import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +11,7 @@ import db.FuncionLogin;
 public class Registro {
 
     //LISTAR GRUAS
-
-    public ArrayList<Grua> listarTodasGruas(){
+    public ArrayList<Grua> listarTodasGruas() {
         ArrayList<Grua> lista = new ArrayList<Grua>();
 
         try {
@@ -25,7 +22,7 @@ public class Registro {
             PreparedStatement stmt = cxn.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Grua grua = new Grua();
 
                 grua.setPATENTE_GRUA(rs.getString("PATENTE_GRUA"));
@@ -37,12 +34,11 @@ public class Registro {
 
                 lista.add(grua);
 
-
             }
             stmt.close();
             cxn.close();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error al listar gruas " + e.getMessage());
 
         }
@@ -116,4 +112,10 @@ public class Registro {
 
 
 
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar por patente " + e.getMessage());
+        }
+        return grua;
+    }
 }
