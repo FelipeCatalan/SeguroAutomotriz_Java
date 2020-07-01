@@ -910,7 +910,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         Registro rg = new Registro();
         if (rg.buscarGrua(PATENTE_GRUA).getPATENTE_GRUA() !=null){
             JOptionPane.showMessageDialog(this, "Grua ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
         } else {
             if (rg.agregarGrua(grua)) {
                 JOptionPane.showMessageDialog(this, "Vehículo se agregó", "Información", JOptionPane.INFORMATION_MESSAGE);
