@@ -7,12 +7,16 @@ package Vista;
 
 import Controlador.Registro;
 import Modelo.Grua;
+import db.Conexion;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -61,7 +65,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         formAddPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnAgregarGrua = new javax.swing.JButton();
         btnLimiparAdd = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         cbxMarca = new javax.swing.JComboBox<>();
@@ -71,6 +75,14 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         cbxTipo = new javax.swing.JComboBox<>();
         txtAnio = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        btnConsultar = new javax.swing.JButton();
+        checkEstado = new javax.swing.JCheckBox();
+        checkEstadoDelete = new javax.swing.JCheckBox();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txtRutConsulta = new javax.swing.JFormattedTextField();
+        txtServicioGrua = new javax.swing.JTextField();
+        txtRutUsuario = new javax.swing.JTextField();
         listPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -264,8 +276,13 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Patente grúa");
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton2.setText("Agregar");
+        btnAgregarGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAgregarGrua.setText("Agregar");
+        btnAgregarGrua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarGruaActionPerformed(evt);
+            }
+        });
 
         btnLimiparAdd.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnLimiparAdd.setText("Limpiar");
@@ -295,6 +312,38 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Año");
 
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        checkEstado.setSelected(true);
+        checkEstado.setText("Disponible");
+        checkEstado.setEnabled(false);
+
+        checkEstadoDelete.setSelected(true);
+        checkEstadoDelete.setText("Habilitada");
+        checkEstadoDelete.setEnabled(false);
+
+        jLabel18.setText("Cargar datos");
+
+        jLabel19.setText("Rut: ");
+
+        try {
+            txtRutConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-A")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+
+
+        txtServicioGrua.setEnabled(false);
+
+
+        txtRutUsuario.setEnabled(false);
+
         javax.swing.GroupLayout formAddPanelLayout = new javax.swing.GroupLayout(formAddPanel);
         formAddPanel.setLayout(formAddPanelLayout);
         formAddPanelLayout.setHorizontalGroup(
@@ -302,11 +351,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
             .addGroup(formAddPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formAddPanelLayout.createSequentialGroup()
                         .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(formAddPanelLayout.createSequentialGroup()
@@ -321,11 +365,38 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                                     .addComponent(cbxMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel12)
                                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(formAddPanelLayout.createSequentialGroup()
-                                .addComponent(jButton2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formAddPanelLayout.createSequentialGroup()
+                                .addComponent(btnAgregarGrua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                                 .addComponent(btnLimiparAdd)))
-                        .addGap(18, 18, 18))))
+                        .addGap(18, 18, 18))
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(checkEstado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkEstadoDelete))
+                            .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRutConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
+                                        .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnConsultar)
+                                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         formAddPanelLayout.setVerticalGroup(
             formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,10 +424,24 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkEstado)
+                    .addComponent(checkEstadoDelete))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel18)
+                .addGap(16, 16, 16)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConsultar)
+                    .addComponent(jLabel19)
+                    .addComponent(txtRutConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarGrua)
                     .addComponent(btnLimiparAdd))
                 .addContainerGap())
         );
@@ -732,7 +817,108 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         txtAnio.setText(null);
         cbxMarca.setSelectedIndex(0);
         cbxTipo.setSelectedIndex(0);
+        txtRutConsulta.setText(null);
+        txtRutUsuario.setText(null);
+        txtServicioGrua.setText(null);
     }//GEN-LAST:event_btnLimiparAddActionPerformed
+
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+            Conexion bd = new Conexion();
+            Connection cxn = bd.obtenerConexion();
+
+            String sql = "SELECT ID,SERVICIO_GRUA_ID_SERVICIO_GRUA FROM DASHBOARD_USUARIO WHERE RUT_USUARIO='"+txtRutConsulta.getText()+"'";
+
+            PreparedStatement stmt = cxn.prepareStatement(sql);
+
+            ResultSet rs= stmt.executeQuery();
+            if (rs.next()){
+                this.txtRutUsuario.setText(rs.getString("ID"));
+                this.txtServicioGrua.setText(rs.getString("SERVICIO_GRUA_ID_SERVICIO_GRUA"));
+
+
+
+
+                stmt.close();
+                cxn.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al agregar grua " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnAgregarGruaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarGruaActionPerformed
+        String PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO;
+        int SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO;
+        boolean ESTADO;
+        boolean ESTADO_DELETE;
+
+        PATENTE_GRUA = txtPatente.getText();
+        if (PATENTE_GRUA.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese patente", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtPatente.requestFocus();
+            return;
+        }
+        ESTADO = checkEstado.isSelected();
+        ESTADO_DELETE = checkEstadoDelete.isSelected();
+        MARCA = cbxMarca.getSelectedItem().toString();
+        if (MARCA.equals("Selecciona marca")){
+            JOptionPane.showMessageDialog(this, "Selecciona marca ", "Validación", JOptionPane.WARNING_MESSAGE);
+            cbxMarca.requestFocus();
+            return;
+        }
+        MODELO = txtModelo.getText();
+        if (MODELO.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese Modelo", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtModelo.requestFocus();
+            return;
+        }
+        TIPO = cbxTipo.getSelectedItem().toString();
+        if (MARCA.equals("Selecciona tipo")){
+            JOptionPane.showMessageDialog(this, "Selecciona tipo ", "Validación", JOptionPane.WARNING_MESSAGE);
+            cbxTipo.requestFocus();
+            return;
+        }
+        try {
+            ANIO = String.valueOf(Integer.parseInt(txtAnio.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "El año debe ser un número", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtAnio.requestFocus();
+            return;
+        }
+        try {
+            SERVICIO_GRUA_ID_SERVICIO= Integer.parseInt(txtServicioGrua.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "CONSULTE DATOS", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtServicioGrua.requestFocus();
+            return;
+        }
+        try {
+            USUARIO_RUT_USUARIO= Integer.parseInt(txtRutUsuario.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "CONSULTE DATOS", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtRutUsuario.requestFocus();
+            return;
+        }
+
+        Grua grua = new Grua(PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO,ESTADO,ESTADO_DELETE);
+
+        Registro rg = new Registro();
+        if (rg.buscarGrua(PATENTE_GRUA).getPATENTE_GRUA() !=null){
+            JOptionPane.showMessageDialog(this, "Grua ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            if (rg.agregarGrua(grua)) {
+                JOptionPane.showMessageDialog(this, "Vehículo se agregó", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Vehículo NO se agregó", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnAgregarGruaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -769,6 +955,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JPanel addPanel;
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JButton btnAddGrua;
+    private javax.swing.JButton btnAgregarGrua;
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnDeleteGrua;
     private javax.swing.JButton btnDisableGrua;
     private javax.swing.JButton btnEditGrua;
@@ -779,6 +967,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> cbxMarca;
     private javax.swing.JComboBox<String> cbxTipo;
+    private javax.swing.JCheckBox checkEstado;
+    private javax.swing.JCheckBox checkEstadoDelete;
     private javax.swing.JPanel containerPanel;
     private javax.swing.JPanel deletePanel;
     private javax.swing.JPanel editPanel;
@@ -786,7 +976,6 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel homePanel;
     private javax.swing.JFormattedTextField input_eliminar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
@@ -799,6 +988,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -823,6 +1014,9 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JTextField txtBuscarPatente;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPatente;
+    private javax.swing.JFormattedTextField txtRutConsulta;
+    private javax.swing.JTextField txtRutUsuario;
+    private javax.swing.JTextField txtServicioGrua;
     private javax.swing.JLabel userConnect;
     // End of variables declaration//GEN-END:variables
 
