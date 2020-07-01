@@ -7,12 +7,18 @@ package Vista;
 
 import Controlador.Registro;
 import Modelo.Grua;
+import Modelo.Usuario;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
+import db.Conexion;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -54,17 +60,25 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         addPanel = new javax.swing.JPanel();
         formAddPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        txtPatente = new javax.swing.JTextField();
+        btnAgregarGrua = new javax.swing.JButton();
+        btnClearGrua = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboMarca = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        cboTipo = new javax.swing.JComboBox<>();
+        txtAnio = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        checkEstado = new javax.swing.JCheckBox();
+        checkEstadoDelete = new javax.swing.JCheckBox();
+        txtServicioGrua = new javax.swing.JTextField();
+        txtRutUsuario = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        btnConsultar = new javax.swing.JButton();
+        txtRutConsulta = new javax.swing.JFormattedTextField();
         listPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -255,17 +269,22 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Patente grúa");
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton2.setText("Agregar");
+        btnAgregarGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAgregarGrua.setText("Agregar");
+        btnAgregarGrua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarGruaActionPerformed(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton1.setText("Limpiar");
+        btnClearGrua.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnClearGrua.setText("Limpiar");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Marca");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona marca", "NISSAN", "CHEVROLET", "MERCEDEZ-BENZ", "VOLKSWAGEN", "TOYOTA", "MITSUBISHI", "VOLVO" }));
+        cboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona marca", "NISSAN", "CHEVROLET", "MERCEDEZ-BENZ", "VOLKSWAGEN", "TOYOTA", "MITSUBISHI", "VOLVO" }));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -275,11 +294,42 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Tipo");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "CAMILLA", "GANCHO", "ARRASTRE" }));
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "CAMILLA", "GANCHO", "ARRASTRE" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Año");
+
+        checkEstado.setSelected(true);
+//        checkEstado.setText("Disponible");
+        checkEstado.setEnabled(false);
+        checkEstado.setToolTipText("");
+
+        checkEstadoDelete.setSelected(true);
+//        checkEstadoDelete.setText("Habilitada");
+        checkEstadoDelete.setEnabled(false);
+        checkEstadoDelete.setToolTipText("");
+
+        txtServicioGrua.setEnabled(false);
+
+        txtRutUsuario.setEnabled(false);
+
+        jLabel18.setText("Llenar datos");
+
+        jLabel19.setText("Rut:");
+
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtRutConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-A")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout formAddPanelLayout = new javax.swing.GroupLayout(formAddPanel);
         formAddPanel.setLayout(formAddPanelLayout);
@@ -290,27 +340,50 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(39, 39, 39)
-                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(46, Short.MAX_VALUE))
-                    .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel10)
+                                    .addComponent(cboMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(46, Short.MAX_VALUE))
+                            .addGroup(formAddPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(checkEstado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkEstadoDelete)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(formAddPanelLayout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnAgregarGrua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnClearGrua)
                         .addGap(18, 18, 18))))
+            .addGroup(formAddPanelLayout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addComponent(jLabel18)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(formAddPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel19)
+                .addGap(20, 20, 20)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(formAddPanelLayout.createSequentialGroup()
+                        .addComponent(txtRutConsulta)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConsultar)))
+                .addGap(46, 46, 46))
         );
         formAddPanelLayout.setVerticalGroup(
             formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,29 +393,43 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(formAddPanelLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkEstado)
+                    .addComponent(checkEstadoDelete))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(btnConsultar)
+                    .addComponent(txtRutConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRutUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtServicioGrua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGroup(formAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarGrua)
+                    .addComponent(btnClearGrua))
                 .addContainerGap())
         );
 
@@ -361,7 +448,7 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                 {null, null, null, null}
             },
             new String [] {
-                "PATENTE", "MARCA", "MODELO ", "TIPO","AÑO","ESTADO"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -391,11 +478,11 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton3.setText("Modificar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+//        jButton3.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jButton3ActionPerformed(evt);
+//            }
+//        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton4.setText("Limpiar");
@@ -652,9 +739,109 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         btnAddGrua.setBackground(new Color(54, 185, 205));
     }//GEN-LAST:event_btnDeleteGruaMousePressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnAgregarGruaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarGruaActionPerformed
+        String PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO;
+        int SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO;
+        boolean ESTADO;
+        boolean ESTADO_DELETE;
+
+        PATENTE_GRUA = txtPatente.getText();
+        if (PATENTE_GRUA.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese patente", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtPatente.requestFocus();
+            return;
+        }
+        ESTADO = checkEstado.isSelected();
+        ESTADO_DELETE = checkEstadoDelete.isSelected();
+        MARCA = cboMarca.getSelectedItem().toString();
+        if (MARCA.equals("Selecciona marca")){
+            JOptionPane.showMessageDialog(this, "Selecciona marca ", "Validación", JOptionPane.WARNING_MESSAGE);
+            cboMarca.requestFocus();
+            return;
+        }
+        MODELO = txtModelo.getText();
+        if (MODELO.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese Modelo", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtModelo.requestFocus();
+            return;
+        }
+        TIPO = cboTipo.getSelectedItem().toString();
+        if (MARCA.equals("Selecciona tipo")){
+            JOptionPane.showMessageDialog(this, "Selecciona tipo ", "Validación", JOptionPane.WARNING_MESSAGE);
+            cboTipo.requestFocus();
+            return;
+        }
+        try {
+            ANIO = String.valueOf(Integer.parseInt(txtAnio.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "El año debe ser un número", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtAnio.requestFocus();
+            return;
+        }
+        try {
+            SERVICIO_GRUA_ID_SERVICIO= Integer.parseInt(txtServicioGrua.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "CONSULTE DATOS", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtServicioGrua.requestFocus();
+            return;
+        }
+        try {
+            USUARIO_RUT_USUARIO= Integer.parseInt(txtRutUsuario.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "CONSULTE DATOS", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtRutUsuario.requestFocus();
+            return;
+        }
+
+        Grua grua = new Grua(PATENTE_GRUA,MARCA,MODELO,TIPO,ANIO,SERVICIO_GRUA_ID_SERVICIO,USUARIO_RUT_USUARIO,ESTADO,ESTADO_DELETE);
+
+        Registro rg = new Registro();
+        if (rg.buscarGrua(PATENTE_GRUA).getPATENTE_GRUA() !=null){
+            JOptionPane.showMessageDialog(this, "Grua ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            if (rg.agregarGrua(grua)) {
+                JOptionPane.showMessageDialog(this, "Vehículo se agregó", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Vehículo NO se agregó", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
+
+
+    }//GEN-LAST:event_btnAgregarGruaActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+            Conexion bd = new Conexion();
+            Connection cxn = bd.obtenerConexion();
+
+            String sql = "SELECT ID,SERVICIO_GRUA_ID_SERVICIO_GRUA FROM DASHBOARD_USUARIO WHERE RUT_USUARIO='"+txtRutConsulta.getText()+"'";
+
+            PreparedStatement stmt = cxn.prepareStatement(sql);
+
+            ResultSet rs= stmt.executeQuery();
+            if (rs.next()){
+                this.txtRutUsuario.setText(rs.getString("ID"));
+                this.txtServicioGrua.setText(rs.getString("SERVICIO_GRUA_ID_SERVICIO_GRUA"));
+
+
+
+
+                stmt.close();
+                cxn.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al agregar grua " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+
+
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -691,24 +878,27 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JPanel addPanel;
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JButton btnAddGrua;
+    private javax.swing.JButton btnAgregarGrua;
+    private javax.swing.JButton btnClearGrua;
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnDeleteGrua;
     private javax.swing.JButton btnDisableGrua;
     private javax.swing.JButton btnEditGrua;
     private javax.swing.JButton btnListGrua;
+    private javax.swing.JComboBox<String> cboMarca;
+    private javax.swing.JComboBox<String> cboTipo;
+    private javax.swing.JCheckBox checkEstado;
+    private javax.swing.JCheckBox checkEstadoDelete;
     private javax.swing.JPanel containerPanel;
     private javax.swing.JPanel deletePanel;
     private javax.swing.JPanel editPanel;
     private javax.swing.JPanel formAddPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
@@ -720,6 +910,8 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -734,14 +926,17 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel listPanel;
     private javax.swing.JLabel logoNombre;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtPatente;
+    private javax.swing.JFormattedTextField txtRutConsulta;
+    private javax.swing.JTextField txtRutUsuario;
+    private javax.swing.JTextField txtServicioGrua;
     private javax.swing.JLabel userConnect;
     // End of variables declaration//GEN-END:variables
 

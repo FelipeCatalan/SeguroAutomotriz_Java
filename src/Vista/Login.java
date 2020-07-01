@@ -6,10 +6,20 @@
 package Vista;
 
 import javax.swing.*;
+
+import Modelo.Grua;
 import Modelo.Usuario;
 import Recursos.Hasher;
+import db.Conexion;
 import db.FuncionLogin;
 import static java.sql.DriverManager.println;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,6 +91,8 @@ public class Login extends javax.swing.JFrame {
                 btnIngresarActionPerformed(evt);
             }
         });
+
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -245,6 +257,7 @@ public class Login extends javax.swing.JFrame {
         println(contra);
         System.out.println(contra);
         System.out.println(us.getPassword());
+        
 
         try {
             fun_login.acceder(us);

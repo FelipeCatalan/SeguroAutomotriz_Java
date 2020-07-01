@@ -20,7 +20,7 @@ public class Grua {
         this.ESTADO = ESTADO;
         this.ESTADO_DELETE = ESTADO_DELETE;
     }
-
+ 
     public String getPATENTE_GRUA() {
         return PATENTE_GRUA;
     }
