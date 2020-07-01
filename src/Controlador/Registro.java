@@ -19,7 +19,7 @@ public class Registro {
             Conexion bd = new Conexion();
             Connection cxn = bd.obtenerConexion();
 
-            String sql = "SELECT * FROM DASHBOARD_GRUA ORDER BY PATENTE_GRUA";
+            String sql = "SELECT * FROM DASHBOARD_GRUA WHERE (ESTADO_DELETE=1) ORDER BY PATENTE_GRUA";
             PreparedStatement stmt = cxn.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
