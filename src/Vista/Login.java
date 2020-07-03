@@ -263,7 +263,7 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void ingresar() {
-        us.setRut_usuario(txtRut.getText());
+        us.setRut_usuario(txtRut.getText().toUpperCase());
         us.setPassword(txtPassword.getText());
 
         String contra = Hasher.passwordShouldMatch(txtPassword.getText(), us.getPassword());
