@@ -46,7 +46,7 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         txtRut = new javax.swing.JFormattedTextField();
         btnIngresar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -85,16 +85,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_multiply_32px.png"))); // NOI18N
-        jButton1.setToolTipText("Salir");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setOpaque(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/images/icons8_multiply_32px.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
+        btnSalir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnSalir.setBorderPainted(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setOpaque(false);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -104,7 +104,7 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(btnSalir))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(220, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -120,7 +120,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(btnSalir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -198,21 +198,21 @@ public class Login extends javax.swing.JFrame {
         String aux2 = txtPassword.getText().trim();
         rutUser = txtRut.getText().trim();
         if (aux.length() == 0) {
-            JOptionPane.showMessageDialog(this, "Ingresar usuario valido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar un usuario valido", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (aux2.length() == 0) {
-            JOptionPane.showMessageDialog(this, "Ingresar contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             ingresar();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int res = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas salir del sistema?", "Salir",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (res == JOptionPane.YES_OPTION) {
             this.dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,7 +251,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
