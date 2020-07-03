@@ -51,7 +51,7 @@ public class FuncionLogin {
                  principalPanel home = new principalPanel();
                  home.setVisible(true);
             }else{
-                JOptionPane.showMessageDialog(null, "Error de acceso , Rol no permitido");
+                JOptionPane.showMessageDialog(null, "Rut o contraseña incorrectas, intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
                 Login l = new Login();
                 l.setVisible(true);
             }
