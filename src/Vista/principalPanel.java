@@ -957,9 +957,9 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     }//GEN-LAST:event_btnDisableGruaActionPerformed
 
     private void btnBuscarPatenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPatenteActionPerformed
-        String patente;
+        String patente, estado_final;
         try {
-            patente = txtBuscarPatente.getText();
+            patente = txtBuscarPatente.getText().toUpperCase();
             if (patente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una patente para buscar", "Validación",
                         JOptionPane.WARNING_MESSAGE);
@@ -977,13 +977,18 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
         //limpiar tabla
         tabla.setRowCount(0);
         Grua grua = rg.buscarGrua(patente);
-        tabla.addRow(new Object[]{grua.getPATENTE_GRUA(), grua.getMARCA(), grua.getMODELO(), grua.getTIPO(), grua.getANIO()});
+        if (grua.getESTADO()) {
+            estado_final = "Disponible";
+        } else {
+            estado_final = "No Disponible";
+        }
+        tabla.addRow(new Object[]{grua.getPATENTE_GRUA(), grua.getMARCA(), grua.getMODELO(), grua.getTIPO(), grua.getANIO(), estado_final});
     }//GEN-LAST:event_btnBuscarPatenteActionPerformed
 
     private void btnBuscarPatente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPatente1ActionPerformed
         String patente;
         try {
-            patente = txtBuscarPatente1.getText();
+            patente = txtBuscarPatente1.getText().toUpperCase();
             if (patente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una patente para buscar", "Validación",
                         JOptionPane.WARNING_MESSAGE);
@@ -1135,9 +1140,10 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     private void btnHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarActionPerformed
         String PATENTE_GRUA, MARCA = null, MODELO = null, TIPO = null, ANIO = null;
         int SERVICIO_GRUA_ID_SERVICIO = 0, USUARIO_RUT_USUARIO = 0;
-        boolean ESTADO = false, ESTADO_DELETE;
+        boolean ESTADO, ESTADO_DELETE;
 
         ESTADO_DELETE = true;
+        ESTADO = true;
         PATENTE_GRUA = txtPatenteEnable.getText();
         if (PATENTE_GRUA.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar una patente válida", "Validación",
@@ -1169,10 +1175,10 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
 
                 }
 
-                JOptionPane.showMessageDialog(this, "Se eliminó correctamente la grúa " + grua.getPATENTE_GRUA(),
+                JOptionPane.showMessageDialog(this, "Se habilitó correctamente la grúa " + grua.getPATENTE_GRUA(),
                         "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar la grúa " + grua.getPATENTE_GRUA(),
+                JOptionPane.showMessageDialog(this, "No se pudo habilitar la grúa " + grua.getPATENTE_GRUA(),
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -1186,11 +1192,12 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
     }//GEN-LAST:event_tableDisabledGruasMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String PATENTE_GRUA, MARCA = null, MODELO = null, TIPO = null, ANIO = null;
+        String PATENTE_GRUA, MARCA = null, MODELO = null, TIPO = null, ANIO = null, ESTADO_FINAL;
         int SERVICIO_GRUA_ID_SERVICIO = 0, USUARIO_RUT_USUARIO = 0;
-        boolean ESTADO = false, ESTADO_DELETE;
+        boolean ESTADO, ESTADO_DELETE;
 
         ESTADO_DELETE = false;
+        ESTADO = false;
         PATENTE_GRUA = txtPatenteEdit.getText();
         if (PATENTE_GRUA.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar una patente válida", "Validación",
@@ -1221,8 +1228,14 @@ public class principalPanel extends javax.swing.JFrame implements ActionListener
                     MODELO = tmp.getMODELO();
                     TIPO = tmp.getTIPO();
                     ANIO = tmp.getANIO();
+                    ESTADO = tmp.getESTADO();
+                    if (ESTADO == true) {
+                        ESTADO_FINAL = "Disponible";
+                    } else {
+                        ESTADO_FINAL = "No Disponible";
+                    }
 
-                    tabla.addRow(new Object[]{PATENTE_GRUA, MARCA, MODELO, TIPO, ANIO});
+                    tabla.addRow(new Object[]{PATENTE_GRUA, MARCA, MODELO, TIPO, ANIO, ESTADO_FINAL});
 
                 }
 
