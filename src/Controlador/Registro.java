@@ -51,10 +51,11 @@ public class Registro {
         try {
             Conexion conex = new Conexion();
             Connection cnx = conex.obtenerConexion();
-            String query = "UPDATE DASHBOARD_GRUA set estado_delete=? WHERE patente_grua=?";
+            String query = "UPDATE DASHBOARD_GRUA set estado_delete=?, estado=? WHERE patente_grua=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setBoolean(1, grua.getESTADO_DELETE());
-            stmt.setString(2, grua.getPATENTE_GRUA());
+            stmt.setBoolean(2, grua.getESTADO());
+            stmt.setString(3, grua.getPATENTE_GRUA());
             int filas = stmt.executeUpdate();
             stmt.close();
             cnx.close();
